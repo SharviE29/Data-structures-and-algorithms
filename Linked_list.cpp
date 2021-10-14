@@ -8,7 +8,7 @@ struct Node
     struct Node *next;
 }*first=NULL; //creating a global pointer
 
-void create(int A[],int n)
+void create(int A[],int n)//Creating a linked list
 {
     int i;
     struct Node *t,*last;
@@ -27,7 +27,7 @@ void create(int A[],int n)
     
 }
 
-void display(struct Node*p)
+void display(struct Node*p)//displaying the linked list
 {
   while(p!=NULL)
   {
@@ -35,7 +35,7 @@ void display(struct Node*p)
       p=p->next;
   }
 }
-void RDisplay(struct Node *p)
+void RDisplay(struct Node *p)//displaying using recursive function
 {
   if(p!=NULL)
   {
@@ -45,7 +45,7 @@ void RDisplay(struct Node *p)
   }
 }
 
-int count(struct Node *p)
+int count(struct Node *p)//counting the number of nodes
 {
     int l=0;
     while(p)
@@ -65,7 +65,7 @@ int Rcount(struct Node *p)
     else 
       return 0;
 }
-int sum(struct Node *p)
+int sum(struct Node *p)//sum of all the values in a linked list
 {
     int s=0;
     while(p!=NULL)
@@ -84,7 +84,7 @@ int Rsum( struct Node *p)
     else 
      return Rsum(p->next)+p->data;
 }
-int Max(struct Node *p){
+int Max(struct Node *p){//finding the maximum element in a linked list
     int max=INT32_MIN;//built in constant
     while(p)
     {
