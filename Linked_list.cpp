@@ -106,14 +106,62 @@ int Rmax(struct Node *p)
       return x;
     else return p->data;      
 }
-int main()
+struct Node *LSearch(struct Node *p,int key)
 {
+    while(p!=NULL)
+    {
+        if(key==p->data)
+          return p;
+        p=p->next;  
+    }
+    return NULL;
+}
+struct Node *RSearch(struct Node *p,int key)
+{
+    if(p==NULL)
+       return NULL;
+    if(key==p->data)
+       return p;
+    return RSearch(p->next,key);     
+}
+void insert(struct Node *p,int index, int x)
+{
+    struct Node *t; //creating a new node
+    if(index<0||index>count(p))//invalid cases
+       return;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=x;
+    if(index==0)//inserting at the first position
+    {
+        t->next=first;
+        first=t;
+    }
+    else{
+        for(int i=0;i<index-1;i++)
+        {
+            p=p->next;
+        }
+        t->next=p->next;
+        p->next=t;
+    }
+}
+int main()
+{   
+    struct Node *temp;
     int A[]={3,5,7,10,15,34,56,78};
     create(A,8);
     //display(first);
     //RDisplay(first);
     //printf("Length is %d", Rcount(first));
     //cout<<"Sum is "<<Rsum(first);
-    cout<<Rmax(first);
+    //cout<<Rmax(first);
+    // temp=RSearch(first,25);
+    // if(temp)
+    //  cout<<"Key is found"<<temp->data;
+    // else
+    //   cout<<"Key is not found"<<endl;
+    // return 0;
+    insert(first,0,10);
+    display(first);
     return 0;
 }
