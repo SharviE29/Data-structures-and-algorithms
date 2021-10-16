@@ -145,22 +145,108 @@ void insert(struct Node *p,int index, int x)
         p->next=t;
     }
 }
+void SortedInsert(struct Node *p,int x)//the key to be inserted
+{
+  struct Node *t,*q=NULL;
+  t=(struct Node*)malloc(sizeof(struct Node));
+  t->data=x;
+  t->next=NULL;//initialising the new pointer
+  if(first==NULL)//if the linked list is already empty
+     first=t;
+  else
+  {
+    while(p && p->data<x)
+    {
+        q=p;
+        p=p->next;
+    }
+    if(p==first)//if the element to be inserted is the smallest
+    {
+        t->next=first;
+        first=t;
+    }
+    else//inserting an element in between the list
+    {
+        t->next=q->next;
+        q->next=t;
+    }
+  }
+
+int Delete(struct Node *p,int index)
+{
+    struct Node *q=NULL;
+    int x=-1;
+
+    if(index<1 || index>count(p))//invalid case
+      return -1;
+    if (index==1)//deleting the first element
+    {
+      q=first;
+      x=first->data;
+      first=first->next;
+      free (q);
+      return x;
+    }  
+    else 
+    {
+        for(int i=0;i<index-1;i++)
+        {
+            q=p;
+            p=p->next;
+        }
+        q->next=p->next;
+        x=p->data;
+        free (p);
+        return p;
+    }
+}
+
+int isSorted(struct Node *p)
+{
+    int x=-65536;
+    while(p!=NULL)
+    {
+        if(p->data<x)//initial assumption is that the list is sorted.
+          return 0;//false
+        x=p->data;
+        p=p->next;  
+    }
+    return 1;//list is sorted
+}
+
+void RemoveDuplicate(struct Node *p)
+{
+    struct Node *q=p->next;//p is a tail pointer for q
+    while(q!=NULL)
+    {
+        if(p->data!=q->data)
+        {
+            p=q;
+            q=q->next;
+        }
+        else//if a duplicate element is found
+        {
+            p->next=q->next;
+            delete q;
+            q=p->next;
+        }
+    }
+}
 int main()
 {   
     struct Node *temp;
     int A[]={3,5,7,10,15,34,56,78};
     create(A,8);
-    //display(first);
-    //RDisplay(first);
-    //printf("Length is %d", Rcount(first));
-    //cout<<"Sum is "<<Rsum(first);
-    //cout<<Rmax(first);
-    // temp=RSearch(first,25);
-    // if(temp)
-    //  cout<<"Key is found"<<temp->data;
-    // else
-    //   cout<<"Key is not found"<<endl;
-    // return 0;
+    display(first);
+    RDisplay(first);
+    printf("Length is %d", Rcount(first));
+    cout<<"Sum is "<<Rsum(first);
+    cout<<Rmax(first);
+    temp=RSearch(first,25);
+    if(temp)
+       cout<<"Key is found"<<temp->data;
+    else
+       cout<<"Key is not found"<<endl;
     insert(first,0,10);
     display(first);
     return 0;
