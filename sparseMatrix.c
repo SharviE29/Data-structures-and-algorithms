@@ -44,10 +44,48 @@ void Display(struct Sparse s)//displaying the actual sparse matrix
         cout<<endl;
     }
 }
+struct add(struct Sparse *s1, struct Sparse *s2)//taking two pointer arrays as a parameter
+{
+    struct Sparse *sum;
+    int i=j=k;
+    i=j=k=0;
+    sum=(struct Sparse *)malloc(sizeof(struct Sparse));//creating a matrix that will store the sum of the 2 matrices
+    sum->ele=(struct Element *)malloc(s1->num+s2->num)*sizeof(struct Element));
+    while(i<s1->num && j<s2->num)
+    {
+        if(s1->ele[i].i < s2->ele[j].i)        //this part is to compare the row value of both the matrices
+           sum->ele[k++]=s1->ele[i++];
+        else if(s1->ele[i].i > s2->ele[j].i)
+           sum->ele[k++]=s2->ele[j++];
+        else 
+        {
+           if(s1->ele[i].j < s2->ele[j].j) //if the row values match, in that case, the column values are compared
+              sum->ele[k++]=s1->ele[i++];
+           else if(s1->ele[i].j > s2->ele[j].j)
+              sum->ele[k++]=s2->ele[j++];
+           else
+           {
+               sum->ele[k]=s1->ele[i];
+               sum->ele[k++]=s1->ele[i++].x+s2->ele[j++].x;//if the row value and column value match, then the two elements are added and stored in the matrix as a single element
+           }  
+        }   
+
+    }
+    for(;i<s1->num;i++) sum->ele[k++]=s1->ele[i];
+    for(;j<s2->num;j++) sum->ele[k++]=s2->ele[j];
+    sum->m=s1->m;
+    sum->n=s1->n;
+    sum->num=k;
+    return sum;
+};
 int main()
 {
     struct Sparse s;
     Create(&s);
     Display(s);
+    s3=add(&s1,&s2);
+    Display(s1);
+    Display(s2);
+    Display(s3);
     return 0;
 }
