@@ -8,7 +8,7 @@ struct Element
     int j;
     int x;
 };
-struct Sparse
+struct Sparse(struct Sparse *s)
 {
     int m;//stores number of rows
     int n;//stores number of columns
@@ -25,10 +25,10 @@ void Create(struct Sparse *s)
     cout<<"Enter all non zero elements:"<<endl;
     for(int i=0;i<s->num;i++)
     {
-        scanf("%d,%d,%d",&s->ele[i].i,&s->ele[i].j,&s->ele[i].x);
+        scanf("%d,%d,%d",&s->ele[i].i,&s->ele[i].j,&s->ele[i].x);// takes all non zero elements
     }
 }
-void Display(struct Sparse s)
+void Display(struct Sparse s)//displaying the actual sparse matrix
 {
     int i,j,k=0;
     for(int i=0;i<s.m;i++)
