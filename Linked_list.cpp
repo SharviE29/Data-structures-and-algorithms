@@ -336,9 +336,26 @@ void Merge(struct Node *p,struct Node *q)
        if(p)=last->next=p;
        if(q)=last->next=q;
 }
+int isLoop(struct Node *f)
+{
+    struct Node *p,*q;
+    p=q=f;
+    do
+    {
+        p=p->next;
+        q=q->next;
+        q=q?q->next:q;
+    }while(p&&q && p!=q);
+    if(p==q)
+       return 1;
+    else 
+       return 0;   
+    
+}
 int main()
 {   
     struct Node *temp;
+    struct Node *t1,*t2;
     int A[]={3,5,7,10,15,34,56,78};
     create(A,8);
     display(first);
@@ -353,5 +370,8 @@ int main()
        cout<<"Key is not found"<<endl;
     insert(first,0,10);
     display(first);
+    t1=first->next->next;
+    t2=first->next->next->next->next;
+    t2->next=t1;//last node will point on node 3
     return 0;
 }
