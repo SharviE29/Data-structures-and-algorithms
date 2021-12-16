@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+//#include<iostream>
 using namespace std;
 struct Node
 {
@@ -15,7 +16,7 @@ void create(int A[], int n)
     Head=(struct Node*)malloc(sizeof(struct Node));
     Head->data=A[0];
     Head->next=Head;
-    last=Head;
+    struct Node *last=Head;
     for(i=1;i<n;i++)
     {
         t=(struct Node*)malloc(sizeof(struct Node));
@@ -36,7 +37,8 @@ void Display(struct Node *h)
 void RDisplay()//recursive display of circular linked list
 {
   static int flag=0;
-  if(h!=head || flag==0)
+  int h;
+  if(h!=Head || flag==0)
   {
       flag=1;
       printf("%d",h->data);
@@ -63,7 +65,7 @@ void Insert(struct Node *p,int index, int x)
     
     if(index==0)//insertion before head node
     {
-      t=(struct Node *)malloc(sizeof(struct Node))
+      t=(struct Node *)malloc(sizeof(struct Node));
       t->data=x;
       if(Head==NULL)//if there are no nodes present initially
       {
@@ -88,7 +90,8 @@ void Insert(struct Node *p,int index, int x)
 }
 
 int Delete(struct Node *p,int index)
-{
+{   
+    int x,t;
     struct Node *q;
     if(index<0 || index>length(Head))
       return -1;
@@ -111,8 +114,9 @@ int Delete(struct Node *p,int index)
         }
     } 
     else
-    {
-        for(i=0;i<index-2;i++)
+    {  
+        //int x;
+        for(int i=0;i<index-2;i++)
         {
             p=p->next;
         }
