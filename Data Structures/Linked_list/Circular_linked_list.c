@@ -30,7 +30,7 @@ void create(int A[], int n)
 void Display(struct Node *h)
 {
     do
-     printf("%d", h->data);/* code */
+     printf("%d", h->data);
     } while (h!=Head);
     printf("\n");   
 }
