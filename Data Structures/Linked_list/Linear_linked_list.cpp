@@ -73,7 +73,7 @@ int count(struct Node *p)//counting the number of nodes
     return l;
 }
 
-int Rcount(struct Node *p)
+int Rcount(struct Node *p)//recursive 
 {
     if (p!=NULL)
     {
@@ -92,7 +92,7 @@ int sum(struct Node *p)//sum of all the values in a linked list
     }
     return s;
 }
-int Rsum( struct Node *p)
+int Rsum( struct Node *p)//recursive
 {
     if(p==NULL)
     {
@@ -113,7 +113,7 @@ int Max(struct Node *p){//finding the maximum element in a linked list
     }
     return max;
 }
-int Rmax(struct Node *p)
+int Rmax(struct Node *p)//recursive
 {
     int x=0;
     if(p==0)
@@ -123,7 +123,7 @@ int Rmax(struct Node *p)
       return x;
     else return p->data;      
 }
-struct Node *LSearch(struct Node *p,int key)
+struct Node *LSearch(struct Node *p,int key)//linear search
 {
     while(p!=NULL)
     {
@@ -131,9 +131,9 @@ struct Node *LSearch(struct Node *p,int key)
           return p;
         p=p->next;  
     }
-    return NULL;
+    return NULL;//if key not found , return null
 }
-struct Node *RSearch(struct Node *p,int key)
+struct Node *RSearch(struct Node *p,int key)//recursive linear search
 {
     if(p==NULL)
        return NULL;
@@ -141,20 +141,27 @@ struct Node *RSearch(struct Node *p,int key)
        return p;
     return RSearch(p->next,key);     
 }
-void insert(struct Node *p,int index, int x)
+//insertion of a new node
+/*
+Three cases:
+1. Insertion at the first position
+2. Insertion at the end of the linked list
+3. Insertion at the given required index
+*/
+void insert(struct Node *p,int index, int x)//parameters are the value to be inserted, and the index in which the value is to be inserted
 {
     struct Node *t; //creating a new node
-    if(index<0||index>count(p))//invalid cases
+    if(index<0||index>count(p))//invalid cases // exception handling
        return;
     t=(struct Node *)malloc(sizeof(struct Node));
     t->data=x;
     if(index==0)//inserting at the first position
     {
-        t->next=first;
-        first=t;
+        t->next=first;//make first point on t's next
+        first=t;      // make t the first node
     }
     else{
-        for(int i=0;i<index-1;i++)
+        for(int i=0;i<index-1;i++)//here index-1 will be the index before the the index the element is to be inserted
         {
             p=p->next;
         }
@@ -162,6 +169,8 @@ void insert(struct Node *p,int index, int x)
         p->next=t;
     }
 }
+//Inserting a new node where the linked list is already sorted
+
 void SortedInsert(struct Node *p,int x)//the key to be inserted
 {
   struct Node *t,*q=NULL;
@@ -172,9 +181,9 @@ void SortedInsert(struct Node *p,int x)//the key to be inserted
      first=t;
   else
   {
-    while(p && p->data<x)
+    while(p && p->data<x)//till we reach the position where linked list data is smaller than x
     {
-        q=p;
+        q=p;// here q is another pointer that will be following p 
         p=p->next;
     }
     if(p==first)//if the element to be inserted is the smallest
@@ -234,6 +243,7 @@ int isSorted(struct Node *p)
 void RemoveDuplicate(struct Node *p)
 {
     struct Node *q=p->next;//p is a tail pointer for q
+    //q is first and p is following q
     while(q!=NULL)
     {
         if(p->data!=q->data)
@@ -249,10 +259,24 @@ void RemoveDuplicate(struct Node *p)
         }
     }
 }
+//a function to reverse a linked list
+
+
+/*
+Method 1:
+By reversing the elements
+Step1 :
+Create an array of size of the number of the nodes in the linked list
+Step 2:
+Copy all the elements in the empty array in the same order
+Step 3:
+Reverse copy them back in the linked list 
+*/
 void Reverse1(struct Node *p)
 {
     int *A,i=0;
     struct Node *q;
+    //creating an empty array in heap
     A=(int *)malloc(sizeof(int)*count(p));
     while(q!=NULL)
     {
@@ -269,6 +293,16 @@ void Reverse1(struct Node *p)
         i--;
     }
 }
+/*
+Method 2:
+Creating sliding pointers
+r,q,p
+later, r=q;
+q=p;
+p=p->next;
+and then the link is reversed
+q->next=r;
+*/
 void Reverse2(struct Node *p)
 {
   struct Node *q=NULL, *r=NULL;
@@ -281,6 +315,10 @@ void Reverse2(struct Node *p)
   }
   first=q;
 }
+/*
+Method 3:
+Recursion
+*/
 void Reverse3(struct Node *q,struct Node *p)
 {
     if(p)
@@ -293,6 +331,7 @@ void Reverse3(struct Node *q,struct Node *p)
         first=q;
     }
 }
+//Concatenation of linked list
 void Concat(struct Node *p, struct Node *q)
 {
     third=p;
@@ -302,9 +341,12 @@ void Concat(struct Node *p, struct Node *q)
     }
     p->next=q;
 }
+//Merging of two linked lists:
+//Combining two sorted lists into a single sorted list
 void Merge(struct Node *p,struct Node *q)
 {
     struct Node *last;
+//initial step is to compare the first element of the two lists
     if(p->data < q->data)
     {
         third=last=p;
