@@ -121,7 +121,7 @@ int stackTop(struct Stack st)
     }
     else
     {
-       return st.S[st.Top];
+       return st.S[st.top];
     }
 }
 int main()
@@ -139,7 +139,7 @@ int main()
         printf("6.To check if the stack is empty \n");
         printf("7.To return the value at the top of the stack \n");
         printf("8. To display the stack \n");
-        printf("-1. Exit");
+        printf("-1. Exit \n");
         printf("Enter your choice : \n");
         scanf("%d", choice);
         switch(choice)
