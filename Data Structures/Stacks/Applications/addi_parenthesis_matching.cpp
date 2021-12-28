@@ -7,6 +7,7 @@
 
 #include<iostream>
 using namespace std;
+const int MAX=20;
 class Node
 { 
   public:
@@ -15,10 +16,11 @@ class Node
 };
 class Stack
 {  
-private:
+public:
+   char str[MAX];
    int size;
    Node *top;
-   char *s;
+   //char *s;
 public:
    Stack()
    {
@@ -67,22 +69,24 @@ public:
            return 0;
        }
    }
-   int isBalanced(char *exp);
+   //int isBalanced(char *exp);
 };
-int Stack::isBalanced(char *exp)
+int isBalanced(string exp)
 {
+    Stack s;
     int i;
+    char ch;
     for(i=0;exp[i]!='\0';i++)
     {
         if(exp[i]=='(' || exp[i]=='['|| exp[i]=='{')
         {
-            Push(exp[i]);
+            s.Push(exp[i]);
         }
         else if(exp[i]==')'|| exp[i]=='}'||exp[i]==']')
         {
-            if(top!=NULL)
+            if(s.top!=NULL)
             {
-                Pop();
+                ch=s.Pop();
             }
             else
             {
@@ -90,7 +94,7 @@ int Stack::isBalanced(char *exp)
             }
         }
     }
-    if(top==NULL)
+    if(s.top==NULL)
     {
         return 1;
     }
@@ -102,9 +106,15 @@ int Stack::isBalanced(char *exp)
 
 int main()
 {
-    char *exp="([a+b]-{c*d})";
-    Stack st;
-    int result=st.isBalanced(exp);
+    //char *exp="([a+b]-{c*d})";
+    Stack s;
+    string st;
+    char choice;
+    do
+    {
+         cout<<"Enter expression :";
+    cin>>st;
+    int result=isBalanced(st);
     if (result==1)
     {
         cout<<"The expression is well balanced !!"<<endl;
@@ -113,5 +123,10 @@ int main()
     {
         cout<<"The expression isn't well balanced !!"<<endl;
     }
+    cout<<"Do you want to continue ? (y/n) :";
+    cin>>choice;
+
+    } while (choice!='n' || choice!='N');
+    
     return 0;
 }
