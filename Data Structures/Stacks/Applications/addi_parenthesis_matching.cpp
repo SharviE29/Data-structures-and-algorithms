@@ -112,21 +112,20 @@ int main()
     char choice;
     do
     {
-         cout<<"Enter expression :";
-    cin>>st;
-    int result=isBalanced(st);
-    if (result==1)
-    {
-        cout<<"The expression is well balanced !!"<<endl;
-    }
-    else
-    {
-        cout<<"The expression isn't well balanced !!"<<endl;
-    }
-    cout<<"Do you want to continue ? (y/n) :";
-    cin>>choice;
+        cout<<"Enter expression :";
+        cin>>st;
+        int result=isBalanced(st);
+        if (result==1)
+        {
+            cout<<"The expression is well balanced !!"<<endl;
+        }
+        else
+        {
+            cout<<"The expression isn't well balanced !!"<<endl;
+        }
+        cout<<"Do you want to continue ? (y/n) :";
+        cin>>choice;
 
-    } while (choice!='n' || choice!='N');
-    
+    } while(choice=='Y' || choice=='y');
     return 0;
 }
