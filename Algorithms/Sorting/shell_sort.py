@@ -1,6 +1,8 @@
 '''
 Shell sort 
-
+best case complexity= O(n)
+worst case complexity=O(n^2)
+average complexity=O(nlogn)
 '''
 
 def shellSort(arr):
