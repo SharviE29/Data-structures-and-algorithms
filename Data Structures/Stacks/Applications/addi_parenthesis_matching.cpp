@@ -1,7 +1,6 @@
 /************************
- 
- Stacks using parenthesis matching
- With using brackets of type {},[],()
+    Stacks using parenthesis matching
+    With using brackets of type {},[],()
 
  ************************/
 
@@ -10,65 +9,65 @@ using namespace std;
 const int MAX=20;
 class Node
 { 
-  public:
-  char data;
-  Node *next;
+    public:
+    char data;
+    Node *next;
 };
 class Stack
 {  
 public:
-   char str[MAX];
-   int size;
-   Node *top;
-   //char *s;
-public:
-   Stack()
-   {
-       top=NULL;
-   }
-   void Push(char x)
-   { 
+    char str[MAX];
+    int size;
+    Node *top;
+    //char *s;
+    public:
+    Stack()
+    {
+        top=NULL;
+    }
+    void Push(char x)
+    { 
        Node *t=new Node();
-       if(t==NULL)
-       {
-           cout<<"Stack overflow !!!!"<<endl;
+        if(t==NULL)
+        {
+            cout<<"Stack overflow !!!!"<<endl;
 
-       }
-       else
-       {
+        }
+        else
+        {
             t->data=x;
             t->next=top;
             top=t;
-       }
-   }
-   char Pop()
-   {   
-       char x=-1;
-       Node *t=new Node();
-       if(t==NULL)
-       {
-           cout<<"Stack underflow !!!!"<<endl;
-       }
-       else
-       {
-           x=t->data;
-           t=top;
-           top=top->next;
-           delete t;
-       }
-       return x;
-   }
-   int isEmpty()
-   {
-       if(top)
-       {
-           return 1;
-       }
-       else
-       {
-           return 0;
-       }
-   }
+        }
+    }
+    char Pop()
+    {   
+        char x=-1;
+        Node *t=new Node();
+        if(t==NULL)
+        {
+            cout<<"Stack underflow !!!!"<<endl;
+        }
+        else
+        {
+            x=t->data;
+            t=top;
+            top=top->next;
+            delete t;
+        }
+        return x;
+    }
+    int isEmpty()
+    {
+        if(top)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
    //int isBalanced(char *exp);
 };
 int isBalanced(string exp)
