@@ -59,7 +59,7 @@ void Tree::createTree()
             p->lchild=t;
             q.enqueue(t);
         }
-         cout<<"Enter the right child of "<<p->data<<":";
+        cout<<"Enter the right child of "<<p->data<<":";
         cin>>x;
         if(x!=-1)
         {
@@ -85,9 +85,9 @@ void Tree::inOrder(Node *p)
 {
   if(p)
   {
-      preOrder(p->lchild);
+      inOrder(p->lchild);
       cout<<p->data<<" ";
-      preOrder(p->rchild);
+      inOrder(p->rchild);
   }
   //cout<<endl;
 }
@@ -95,8 +95,8 @@ void Tree::postOrder(Node *p)
 {
   if(p)
   {
-      preOrder(p->lchild);
-      preOrder(p->rchild);
+      postOrder(p->lchild);
+      postOrder(p->rchild);
       cout<<p->data<<" ";
   }
   //cout<<endl;
