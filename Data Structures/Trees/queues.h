@@ -101,24 +101,76 @@ bool Queue::isEmpty()
     }
     return false;
 }
-// Queue::~Queue()
-// {
-//     Node *p=front;
-//     while(front)
-//     {
-//         front=front->next;
-//         delete p;
-//         p=front;
-//     }
-// }
-// void Queue::display()
-// {
-//     Node *p=front;
-//     while(p)
-//     {
-//         cout<<p->data<<" ";
-//         p=p->next;
-//     }
-//     cout<<endl;
-// }
+class Stack
+{
+    private:
+    int size;
+    int top;
+    Node **S;
+    public:
+    Stack();
+    Stack(int size);
+    void push(Node *x);
+    Node *pop();
+    bool isFull();
+    bool isEmpty();
+    Node *stackTop();
+};
+Stack::Stack()
+{
+    int size=50;
+    top=-1;
+    S=new Node *[size];
+}
+Stack::Stack(int size)
+{
+    this->size=size;
+    top=-1;
+    S=new Node *[size];
+}
+void Stack::push(Node *x)
+{
+    if(isFull())
+    {
+        cout<<"Stack overflow";
+    }
+    else
+    {
+        top++;
+        S[top]=x;
+    }
+}
+Node *Stack::pop()
+{
+    Node *x=nullptr;
+    if(isEmpty())
+    {
+        cout<<"Stack underflow";
+    }
+    else
+    {
+        x=S[top];
+        top--;
+    }
+    return x;
+}
+bool Stack::isFull()
+{
+    if(top==size-1)
+       return true;
+    return false;   
+}
+bool Stack::isEmpty()
+{
+    if(top==-1)
+       return true;
+    return false;   
+}
+Node *Stack::stackTop()
+{
+    if(isEmpty())
+       return nullptr;
+    else
+       return S[top];   
+}
 #endif

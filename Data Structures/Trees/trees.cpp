@@ -33,6 +33,15 @@ public:
    {
      levelOrder(root);
    }
+   void preorderIter(Node *p);
+   void inorderIter(Node *p);
+   void postorderIter(Node *p);
+   int count(Node *p);
+   int sum(Node *p);
+   int nodewithLandRchild(Node *p);
+   int countLeafnodes(Node *p);
+   int nodewithLorandRchild(Node *p);
+   int nodewithLorRchild(Node *p);
 };
 void Tree::createTree()
 {
@@ -133,6 +142,144 @@ int Tree::height(Node *root)
      return x+1;
   else
      return y+1;   
+}
+int Tree::count(Node *p)
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    return x+y+1;
+  return 0;
+  //instead of assigning the values to x and y
+  //return count(p->lchild)+count(p->rchild)+1
+}
+int Tree::sum(Node *p)
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    return x+y+p->data;
+  return 0;
+}
+int Tree::nodewithLandRchild(Node *p)//counting nodes with degree 2
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    if(p->lchild!=nullptr && p->rchild!=nullptr)
+      return x+y+1;
+    else
+      return x+y;  
+  return 0;
+}
+int Tree::countLeafnodes(Node *p)//counting nodes with degree 0
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    if(p->lchild==nullptr && p->rchild==nullptr)
+      return x+y+1;
+    else
+      return x+y;  
+  return 0;
+}
+int Tree::nodewithLorandRchild(Node *p)//counting nodes with degree 1 or 2
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    if(p->lchild!=nullptr || p->rchild!=nullptr)
+      return x+y+1;
+    else
+      return x+y;  
+  return 0;
+}
+int Tree::nodewithLorRchild(Node *p)//only degree 1
+{
+  int x,y;
+  if(p!=nullptr)
+    x=count(p->lchild);
+    y=count(p->rchild);
+    //if(p->lchild!=nullptr ^ p->rchild!=nullptr) //another way of writing the same
+    if((p->lchild!=nullptr && p->rchild==nullptr)||(p->lchild==nullptr && p->rchild))//xor operation
+      return x+y+1;
+    else
+      return x+y;  
+  return 0;
+}
+void Tree::preorderIter(Node *p)
+{
+  Stack s(100);
+  while(p!=nullptr || !s.isEmpty())
+  {
+    if(p!=nullptr)
+    {
+      cout<<p->data<<" ";
+      s.push(p);
+      p=p->lchild;
+    }
+    else
+    {
+      p=s.stackTop();
+      s.pop();
+      p=p->rchild;
+    }
+  }
+  cout<<endl;
+}
+void Tree::inorderIter(Node *p)
+{
+  Stack s(100);
+  while(p!=nullptr || !s.isEmpty())
+  { 
+    if(p!=nullptr)
+    {
+      s.push(p);
+      p=p->lchild;
+    }
+    else
+    {
+      p=s.pop();
+      cout<<p->data<<" ";
+      p=p->rchild;
+    } 
+  }
+}
+//This is tricky
+void Tree::postorderIter(Node *p)
+{
+   Stack s(100);
+   long int temp;
+   while(p!=nullptr || !s.isEmpty())
+   {
+     if(p!=nullptr)
+     {
+       s.push(p);
+       p=p->lchild;
+     }
+     else
+     { 
+       temp=(int)s.stackTop();
+       p=s.stackTop();
+       s.pop();
+       if(temp>0)
+       {
+         s.push((Node*)-temp);
+         p=((Node*)temp)->rchild;
+       }
+       else
+       {
+         cout<<((Node*)(-temp))->data<<" ";
+         p=nullptr;
+       }
+     }
+   }
+  cout<<endl;
 }
 int main()
 { 
