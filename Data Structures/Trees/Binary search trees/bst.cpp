@@ -24,6 +24,7 @@ class Bst
  void insert(int key);
  void inorder(Node *p);
  Node *search(int key);
+ Node *RecursiveInsert(Node *p,int key);
 };
 Node *Bst::search(int key)
 {
@@ -61,23 +62,23 @@ void Bst::insert(int key)//create a tail pointer
   while(t!=nullptr)
   {
       r=t;
-      if(p->data==key)
+      if(t->data==key)
       {
         return ;
       }
-      else if(p->data>key)
+      else if(t->data>key)
       {
-        p=p->rchild;
+        t=t->lchild;
       }
-      else if(p->data<key)
+      else if(t->data<key)
       {
-        p=p->lchild;
+        t=t->rchild;
       }    
   }
   p=new Node;
   p->data=key;
   p->lchild=p->rchild=nullptr;
-  if(p->data>r->data){
+  if(key>r->data){
     r->rchild=p;
   }
   else {
@@ -92,6 +93,29 @@ void Bst::inorder(Node *p)
       cout<<p->data<<" ";
       inorder(p->rchild);        
     }
+}
+Node *Bst::RecursiveInsert(Node *p,int key)
+{ 
+
+  Node *t=nullptr;
+
+  if(p==nullptr)
+  {
+    Node *t=new Node();
+    t->data=key;
+    t->lchild=t->rchild=nullptr;
+    return t;
+  }
+  if(key<p->data)
+  {
+    p->lchild=RecursiveInsert(p->lchild,key);
+  }
+  else if(key>p->data)
+  {
+    p->rchild=RecursiveInsert(p->rchild,key);
+  }
+  else
+    return p;
 }
 int main()
 {
